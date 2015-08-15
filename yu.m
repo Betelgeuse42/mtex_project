@@ -1,0 +1,17 @@
+load('2_very small areaebsd2.mat');
+plotx2east;
+figure;plot(ebsd2);
+grains = calcGrains(ebsd2, 'threhold', 5*degree);
+grains1 = calcGrains(grains(grainSize(grains) > 10), 'threhold', 5*degree);
+figure;plot(ebsd2, 'property', 'iq');
+colormap(1-gray);
+xlabel('ìêì','FontSize', 14);
+ylabel('ìêì','FontSize', 14);
+KAM = calcKAM(grains, 'secondorder');
+%max(KAM);
+KAM0 = KAM;
+KAM0(KAM>5*degree) = 5*degree;
+figure;plot(get(grains,'ebsd'),'property',log(KAM0));
+colorbar;
+xlabel('ìêì');
+ylabel('ìêì');colormap(1-gray);
